@@ -106,6 +106,8 @@ Route::group(['middleware' => 'FrontLogin'],function(){
 	Route::get('/order-return','OrderController@returnOrders');
 	// PDF Invoice
 	Route::get('/view-pdf-invoice/{id}','OrderController@PDFInvoice');
+	// Downlaod PDF Invoice
+	Route::get('/download-pdf-invoice/{id}','OrderController@PDFInvoiceDownload');
 });
 
 Route::group(['middleware' => 'AdminLogin'],function(){
@@ -123,6 +125,8 @@ Route::group(['middleware' => 'AdminLogin'],function(){
 	// Products Routes (Admin)
 	Route::match(['get', 'post'], '/admin/add-product','ProductsController@addProduct');
 	Route::get('/admin/view-products','ProductsController@viewProducts');
+	Route::get('/admin/export-products','ProductsController@exportProducts');
+	Route::post('/admin/import-products','ProductsController@importProducts');
 	Route::match(['get', 'post'], '/admin/edit-product/{id}','ProductsController@editProduct');
 	Route::get('/admin/delete-product-image/{id}','ProductsController@deleteProductImage');
 	Route::get('/admin/delete-product/{id}','ProductsController@deleteProduct');

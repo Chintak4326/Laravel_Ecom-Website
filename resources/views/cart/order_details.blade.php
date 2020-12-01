@@ -19,6 +19,15 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 0.10rem
 }
+.card .fa-download{
+    font-size: 30px;
+    margin-left: 10px;
+    color: #ee5435;
+    border: 2px solid #ee5435;
+    padding: 4.5px;
+    margin-top: 4px;
+    border-radius: 7px;
+}
     .pagination > li > a,
     .pagination > li > span {
         color: #ff3030; // use your own color here
@@ -39,10 +48,10 @@
     background-color: #ff3030;
     border-color: #ff3030;
 }
-.fa, .fas {
+.card .fa, .fas {
     margin-top: 13px;
 }
-hr {
+.card hr {
     margin-top: 1rem;
     margin-bottom: 1rem;
     border: 0;
@@ -271,7 +280,8 @@ p {
                 <div class="mt-20"><a rel="{{$orders->id}}" rel1="delete-orders" class="btn-color btn left-side deleteOrder" style="border-radius: 8px; background: #ee5435;">Cancel Order</a></div>
             @endif
             @if($orders->cancel_flag == 0 && $orders->order_status == "Order Placed" || $orders->order_status == "Order Shipped" || $orders->order_status == "On the way" || $orders->order_status == "Order Delivered")
-                <div class="mt-20"><a href="{{ url('/view-pdf-invoice/'.$orders->id) }}" class="btn-color btn right-side" style="border-radius: 8px; background: #ee5435;">Invoice</a> </div>
+                <div class="right-side"><a href="{{ url('/download-pdf-invoice/'.$orders->id) }}"  data-toggle="tooltip" title="download"><i class="fas fa-download"></i></a></div>
+                <div class="mt-20"><a href="{{ url('/view-pdf-invoice/'.$orders->id) }}" target="_blank" class="btn-color btn right-side" style="border-radius: 8px; background: #ee5435;">Invoice</a> </div>
             @endif
         </div>
         @endforeach

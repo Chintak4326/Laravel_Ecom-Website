@@ -22,7 +22,7 @@ $companies = Controller::companies();
                   <div class="content-dropdown">
                     <ul>
                       @if(!empty(Auth::check()) && Auth::user()->admin==0)
-                        <li class="logout-icon"><a href="{{ url('/logout-user')}}" title="Logout"><i class="fa fa-user-plus"></i> Logout</a></li>
+                        <li class="logout-icon"><a href="{{ url('/logout-user')}}" title="Logout"><i class="fa fa-share-square"></i> Logout</a></li>
                       @else
                         <li class="register-icon"><a href="{{ url('/register-user')}}" title="Register"><i class="fa fa-user-plus"></i> Register</a></li>
                         <li class="login-icon"><a href="{{ url('/login-user')}}" title="Login"><i class="fa fa-user"></i> Login</a></li>
@@ -76,7 +76,10 @@ $companies = Controller::companies();
                   @if($cartcount == 0)
                     <li class="cart-icon"> <a href="{{url('shopping-cart')}}"><span><small class="cart-notification">0</small> </span></a>
                       <div class="cart-dropdown header-link-dropdown">
-                        <div class="mt-20"><a href="{{url('/')}}" class="btn-color btn right-side">Please Select Products !!</a> </div>
+                        <div class="mt-0">
+                          <img alt="Stylexpo" src="{{ asset('images/frontend_images/cart-empty.jpg')}}">
+                        </div>
+                        <div class="mt-20"><a href="{{url('/')}}" class="btn-color btn" style="margin-left: 17%;font-size: 13px;padding: 10px;width: 70%;">START SHOPPING</a> </div>
                       </div>
                     </li>  
                   @else
@@ -88,7 +91,7 @@ $companies = Controller::companies();
                               <div class="media"> <a class="pull-left"> <img alt="Stylexpo" src="{{ asset('images/backend_images/product/small/'.$cartd->image)}}"></a>
                                 <div class="media-body"> <span><a href="#" style="font-size:16px;">{{$cartd->product_name}}</a></span>
                                   <span style="font-size: 13px;">({{$cartd->color}},{{$cartd->ram}},{{$cartd->storage}})</span>
-                                  <p class="cart-price">RS. {{$cartd->price}}/-</p>
+                                  <p class="cart-price">RS. {{$cartd->price}}</p>
                                     <div class="product-qty">
                                       <label>Qty:{{$cartd->qty}}</label>
                                     </div>
@@ -104,7 +107,10 @@ $companies = Controller::companies();
                 @else
                     <li class="cart-icon"> <a href="{{url('shopping-cart')}}"><span><small class="cart-notification">0</small> </span></a>
                       <div class="cart-dropdown header-link-dropdown">
-                        <div class="mt-20"><a href="{{url('/login-user')}}" class="btn-color btn right-side">Please Login !!</a> </div>
+                        <div class="mt-0">
+                          <img alt="Stylexpo" src="{{ asset('images/frontend_images/please-login.jpg')}}" style="width: 80%;margin-left: 10%;">
+                        </div>
+                        <div class="mt-20"><a href="{{url('/login-user')}}" class="btn-color btn" style="margin-left:13%; width:73%; padding: 13px; font-size:15px;">PLEASE LOGIN !!</a> </div>
                       </div>
                     </li>
                 @endif
@@ -265,8 +271,8 @@ $companies = Controller::companies();
               <div class="col-lg-6">
                 <a href="{{'/logout-user'}}">
                   <div class="account-inner">
-                    <i class="fa fa-share-square-o"></i><br>
-                    <span>log out</span>
+                    <i class="fa fa-share-square"></i><br>
+                    <span>Log out</span>
                   </div>
                 </a>
               </div>
@@ -302,7 +308,10 @@ $companies = Controller::companies();
                 @endforeach
               </ul>
               @if($cartcount == 0)
-                <div class="mt-20"><a href="{{url('/')}}" class="btn-color btn right-side">Please Select Products !!</a> </div>
+                <div class="mt-0">
+                  <img alt="Stylexpo" src="{{ asset('images/frontend_images/cart-empty.jpg')}}" style="width: 70%;margin-left: 17%;">
+                </div>
+                <div class="mt-10"><a href="{{url('/')}}" class="btn-color btn" style="margin-left:32%; width:40%;">START SHOPPING</a> </div>
               @else
                 <div class="mt-20"><a href="{{url('/shopping-cart')}}" class="btn-color btn right-side">Cart</a> </div>
               @endif

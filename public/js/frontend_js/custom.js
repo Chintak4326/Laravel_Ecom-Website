@@ -757,9 +757,9 @@ $().ready(function(){
       success:function(resp){
         // alert(resp);
         if(resp=="false"){
-          $('#chkpwd').html("<font color='red'>Old Password is incorrect</font>");
+          $('#chkpwd').html("<font color='red'>Current Password is Incorrect</font>");
         }else if(resp=="true"){
-          $('#chkpwd').html("<font color='green'>Old Password is correct</font>");
+          $('#chkpwd').html("<font color='green'>Current Password is correct</font>");
         }
       },error:function(){
         alert("Error");

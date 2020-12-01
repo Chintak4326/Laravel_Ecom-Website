@@ -68,7 +68,29 @@ class OrderController extends Controller
         $pdf = PDF::loadView('cart.invoice',['orderdetails' => $orderdetails,'addressdetails' => $addressdetails]);
 
         return $pdf->stream();
-    }   
+    } 
+    
+    public function PDFInvoiceDownload(Request $req, $id=NULL){
+        $user_id = Auth::user()->id;
+        $invoiceDetails = Order::where(['id'=>$id])->first();
+        // $orderdata = Order::where('flag',$invoiceDetails->flag)->get();
+        $orderdetails = \DB::table('orders')
+            ->join('products_attributes','orders.pro_attribute_id', '=', 'products_attributes.id')
+            ->join('products','products_attributes.product_id', '=', 'products.id')
+            ->select('products_attributes.ram','products_attributes.storage','products_attributes.color','products_attributes.price','orders.*','products.product_name','products.image')
+            ->where('user_id',$user_id)
+            ->where('flag',$invoiceDetails->flag)
+            ->get();
+        $addressdetails = \DB::table('orders')
+            ->join('delivery_addresses','orders.delivery_address_id', '=', 'delivery_addresses.id')
+            ->select('delivery_addresses.*')
+            ->where('orders.id',$invoiceDetails->id)
+            ->get();
+        // print_r($invoiceDetails->id);die;
+        $pdf = PDF::loadView('cart.invoice',['orderdetails' => $orderdetails,'addressdetails' => $addressdetails]);
+
+        return $pdf->download();
+    }  
 
     public function returnOrders(Request $req){
         $id = $req->get('id');

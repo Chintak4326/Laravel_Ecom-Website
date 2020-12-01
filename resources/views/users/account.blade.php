@@ -298,7 +298,7 @@
             <div class="row">
               <div class="col-12">
                 <div class="input-box">
-                  <label for="curr-pass">Old Password</label>
+                  <label for="curr-pass">Current Password</label>
                   <input type="password" placeholder="Old Password" id="old_pass" name="old_pass">
                   <span id="chkpwd"></span>
                 </div>

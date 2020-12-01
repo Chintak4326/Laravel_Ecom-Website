@@ -11,6 +11,9 @@ use App\Category;
 use App\Product;
 use App\ProductsAttribute;
 use App\ProductsImage;
+use App\Exports\productsExport;
+use App\Imports\productsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductsController extends Controller
 {
@@ -246,12 +249,16 @@ class ProductsController extends Controller
     }
 
     public function viewProducts(){
-        $products = Product::get();
-        // $products = json_decode(json_encode($products));
-        foreach ($products as $key => $val) {
-            $category_name = Category::where(['id'=>$val->category_id])->first();
-            $products[$key]->category_name = $category_name->name;
-        }
+        // $products = Product::get();
+        // // $products = json_decode(json_encode($products));
+        // foreach ($products as $key => $val) {
+        //     $category_name = Category::where(['id'=>$val->category_id])->first();
+        //     $products[$key]->category_name = $category_name->name;
+        // }
+        $products = \DB::table('products')
+            ->join('categories','categories.id','=','products.category_id')
+            
+            ->get();
         // echo "<pre>"; print_r($products); die;
         return view('admin.products.view_products')->with(compact('products'));
     }
@@ -476,5 +483,17 @@ class ProductsController extends Controller
         $proArr = $data['idColor'];
         $proAttr = ProductsAttribute::where('id',$proArr)->first();
         return ['(',$proAttr->color,',',$proAttr->ram,',',$proAttr->storage,')'];
+    }
+
+    public function exportProducts(){
+        return Excel::download(new productsExport,'products.xlsx');
+    }
+
+    public function importProducts(Request $req){
+        $this->validate($req,[
+            'select_file'   =>  'required|mimes:xls,xlsx'
+        ]);
+        Excel::import(new productsImport,request()->file('select_file'));
+        return back()->with('flash_message_success','Excel Data Imported Successfully');
     }
 }

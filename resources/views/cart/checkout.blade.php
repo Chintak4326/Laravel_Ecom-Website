@@ -151,12 +151,12 @@ $cartdata = Controller::cartdata();
                       <tbody>
                         <tr>
                           <td>Item(s) Subtotal</td>
-                          <td><div class="price-box"> <span class="price">RS. {{$total}}/-</span> </div></td>
+                          <td><div class="price-box"> <span class="price">RS. {{$total}}</span> </div></td>
                         </tr>
                         <tr>
                           @if ($total>0)
                             <td>Shipping</td>
-                            <td><div class="price-box"> <span class="price">Rs. 100/- (Free)</span> </div></td>
+                            <td><div class="price-box"> <span class="price">Rs. 0 (Free)</span> </div></td>
                           @else
                             <td>Shipping</td>
                             <td><div class="price-box"> <span class="price">Rs. 0/-</span> </div></td> 

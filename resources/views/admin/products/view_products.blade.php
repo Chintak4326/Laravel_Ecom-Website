@@ -17,8 +17,27 @@
       <strong>{!! session('flash_message_success') !!} </strong>
     </div>
     @endif
+    @if (count($errors)>0)
+      <div class="alert alert-error alert-block">
+        Upload Validation Error<br><br>
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
   </div>
+  <div style="margin-left:20px;float:left;">
+    <a href="{{url('/admin/export-products')}}" class="btn btn-primary btn-mini">Export</a>
+  </div>
+  <form style="float:right; margin-right:20px;" method="post" enctype="multipart/form-data" action="{{ url('/admin/import-products') }}">
+    {{ csrf_field() }}
+      <input type="file" name="select_file">
+      <input type="submit" name="upload" class="btn btn-primary btn-mini" value="Import">
+   </form>
   <div class="container-fluid">
+    <br>
     <hr>
     <div class="row-fluid">
       <div class="span12">
@@ -46,7 +65,7 @@
               <tbody>
                 @foreach ($products as $product)
                 <tr class="gradeX">
-                  <td>{{ $product->category_name }}</td>
+                  <td>{{ $product->name }}</td>
                   <td>{{ $product->product_name }}</td>
                   <td>
                     @if (!empty($product->image))
@@ -94,7 +113,7 @@
             </tr>
             <tr>
               <td style="font-size: 14px;">Category Name </td>
-              <td style="font-size: 14px;">{{ $product->category_name }}</td>
+              <td style="font-size: 14px;">{{ $product->name }}</td>
             </tr>
             <tr>
               <td style="font-size: 14px;">Model Name </td>
